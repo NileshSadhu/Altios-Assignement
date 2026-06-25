@@ -1,21 +1,25 @@
 import type { NextFunction, Request, Response } from "express";
-import dotenv from "dotenv";
 import jwt, { type JwtPayload } from "jsonwebtoken";
-
-dotenv.config();
-
-const JWT_SECRET = process.env.JWT_SECRET as string;
 
 declare global {
   namespace Express {
     interface Request {
-      _id: string;
+      userId: string;
     }
   }
 }
 
-const checkApi = async (req: Request, res: Response, next: NextFunction) => {
+const checkUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const JWT_SECRET = process.env.JWT_SECRET;
+
+    if (!JWT_SECRET) {
+      console.log("JWT_SECRET is not set in environment variables.");
+      return res.status(500).json({
+        message: "Server side error.",
+      });
+    }
+
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -27,13 +31,21 @@ const checkApi = async (req: Request, res: Response, next: NextFunction) => {
     const token = authHeader.split(" ")[1] as string;
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
 
-    req._id = decoded.id as string;
+    if (!decoded.id) {
+      return res.status(401).json({
+        message: "Invalid token payload.",
+      });
+    }
+
+    req.userId = decoded.id as string;
 
     next();
   } catch (error) {
     console.log("Failed to check user : ", error);
-    return res.status(500).json({
-      message: "Server Side error.",
+    return res.status(401).json({
+      message: "Invalid or expired token.",
     });
   }
 };
+
+export default checkUser;
