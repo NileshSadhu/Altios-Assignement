@@ -12,17 +12,18 @@ export enum PriorityStatus {
   HIGH = "high",
 }
 
-export interface Task {
+export interface ITask {
   _id?: Types.ObjectId;
   title: string;
-  description?: string;
-  status: TaskStatus;
-  priority: PriorityStatus;
+  description?: string | undefined;
+  status: TaskStatus | undefined;
+  priority: PriorityStatus | undefined;
   createdAt?: Date;
   updatedAt?: Date;
+  userId: Types.ObjectId;
 }
 
-const taskSchema = new Schema<Task>(
+const taskSchema = new Schema<ITask>(
   {
     title: {
       type: String,
@@ -43,10 +44,15 @@ const taskSchema = new Schema<Task>(
       enum: Object.values(PriorityStatus),
       default: PriorityStatus.MEDIUM,
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-export const Task = mongoose.model<Task>("Task", taskSchema);
+export const Task = mongoose.model<ITask>("Task", taskSchema);
