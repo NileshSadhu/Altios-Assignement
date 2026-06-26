@@ -38,6 +38,7 @@ const Register = () => {
       }
 
       localStorage.setItem("token", token);
+      localStorage.setItem("username", response.data.user.username);
       navigate("/");
     } catch (error) {
       console.log("Failed register API : ", error);
@@ -121,7 +122,7 @@ const Register = () => {
           <p className="text-center text-xs ">
             Already have an account ?{" "}
             <span
-              className="text-blue-600 cursor-pointer"
+              className="text-black cursor-pointer"
               onClick={() => navigate("/login")}
             >
               Login here

@@ -33,6 +33,7 @@ const Login = () => {
       }
 
       localStorage.setItem("token", token);
+      localStorage.setItem("username", response.data.user.username);
 
       navigate("/");
     } catch (error: any) {
@@ -98,7 +99,7 @@ const Login = () => {
           <p className="text-center text-xs ">
             Don't have an account ?{" "}
             <span
-              className="text-blue-600 cursor-pointer"
+              className="text-black cursor-pointer"
               onClick={() => navigate("/register")}
             >
               Register here

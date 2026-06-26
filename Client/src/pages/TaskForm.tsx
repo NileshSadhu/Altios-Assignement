@@ -99,7 +99,7 @@ const TaskForm = () => {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Task title"
             required
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
           />
         </div>
 
@@ -109,7 +109,7 @@ const TaskForm = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Description (optional)"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
           />
         </div>
 
@@ -122,7 +122,7 @@ const TaskForm = () => {
                 e.target.value as "pending" | "in-progress" | "completed",
               )
             }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
           >
             <option value="pending">Pending</option>
             <option value="in-progress">In Progress</option>
@@ -137,7 +137,7 @@ const TaskForm = () => {
             onChange={(e) =>
               setPriority(e.target.value as "low" | "medium" | "high")
             }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -151,7 +151,7 @@ const TaskForm = () => {
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
           >
             {submitting
               ? "Saving..."

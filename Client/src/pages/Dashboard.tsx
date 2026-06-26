@@ -69,7 +69,12 @@ const Dashboard = () => {
   return (
     <div className="mx-auto max-w-2xl p-4 sm:p-6">
       <div className="mb-6 flex items-center justify-between">
-        <p className="text-2xl font-bold">Hey</p>
+        <div>
+          <p className="text-2xl font-bold">Dashboard</p>
+          <p className="text-sm text-black">
+            Welcome, {localStorage.getItem("username")}
+          </p>
+        </div>
         <div className="flex gap-2">
           <button
             onClick={() => navigate("/tasks/new")}
@@ -117,7 +122,7 @@ const Dashboard = () => {
           </p>
           <button
             onClick={() => navigate("/tasks/new")}
-            className="text-sm font-medium text-blue-600"
+            className="text-sm font-medium text-black"
           >
             Create your first task
           </button>
