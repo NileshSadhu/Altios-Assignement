@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL:
-    import.meta.env.SERVER_URL || "https://altois-assignement.onrender.com",
+    import.meta.env.SERVER_URL || "https://altois-assignement.onrender.com/api",
 });
 
 api.interceptors.request.use((config) => {
