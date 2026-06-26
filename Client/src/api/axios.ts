@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.SERVER_URL || "http://localhost:8000/api",
+  baseURL:
+    import.meta.env.SERVER_URL || "https://altois-assignement.onrender.com",
 });
 
 api.interceptors.request.use((config) => {
