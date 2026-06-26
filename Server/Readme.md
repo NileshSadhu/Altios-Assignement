@@ -101,8 +101,8 @@ Request Body:
 
 ```json
 {
-  "username": "john",
-  "email": "john@example.com",
+  "username": "Nilesh Sadhu",
+  "email": "nilesh@example.com",
   "password": "password123"
 }
 ```
@@ -119,7 +119,7 @@ Request Body:
 
 ```json
 {
-  "email": "john@example.com",
+  "email": "nilesh@example.com",
   "password": "password123"
 }
 ```
