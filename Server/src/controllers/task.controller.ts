@@ -93,14 +93,20 @@ export const updateTask = async (req: Request, res: Response) => {
     const task = taskSchema.parse(req.body);
     const { id } = req.params;
 
+    if (!id) {
+      return res.status(400).json({
+        message: "Task id is required",
+      });
+    }
+
     const updatedTask = await Task.findOneAndUpdate(
       {
-        id: id,
+        _id: id,
         userId: req.userId,
       },
       task,
       {
-        new: true,
+        returnDocument: "after",
       },
     );
 

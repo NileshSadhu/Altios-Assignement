@@ -12,4 +12,10 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
+import authRoute from "./routes/auth.route.js";
+import taskRoute from "./routes/Task.route.js";
+
+app.use("/api/auth", authRoute);
+app.use("/api/", taskRoute);
+
 export default app;
