@@ -6,6 +6,7 @@ import CustomBtn from "../../components/CustomBtn";
 import CustomInput from "../../components/CustomInput";
 
 import api from "../../api/axios";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -39,27 +40,17 @@ const Register = () => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("username", response.data.user.username);
+      toast.success("Account created successfully");
       navigate("/");
     } catch (error) {
       console.log("Failed register API : ", error);
-
       let message: string | undefined;
 
       if (axios.isAxiosError(error)) {
         message = error.response?.data?.message;
       }
 
-      if (message === "User already exists.") {
-        setErrors({ email: "An account with this email already exists." });
-      } else if (message === "Username already taken.") {
-        setErrors({ username: "This username is already taken." });
-      } else if (message === "Validation error") {
-        setErrors({
-          password: "Please check your username, email, and password.",
-        });
-      } else {
-        setErrors({ password: "Registration failed. Please try again." });
-      }
+      toast.error(message ?? "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }

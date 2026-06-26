@@ -5,6 +5,8 @@ import CustomBtn from "../../components/CustomBtn";
 import CustomInput from "../../components/CustomInput";
 
 import api from "../../api/axios";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,22 +36,17 @@ const Login = () => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("username", response.data.user.username);
-
+      toast.success("Logged in successfully");
       navigate("/");
     } catch (error: any) {
       console.log("Failed login API : ", error);
+      let message: string | undefined;
 
-      const message = error?.response?.data?.message;
-
-      if (message === "Invalid credentials") {
-        setErrors({ email: "No account found with this email." });
-      } else if (message === "Invalid password") {
-        setErrors({ password: "Incorrect password." });
-      } else if (message === "Validation error") {
-        setErrors({ email: "Please check your email and password." });
-      } else {
-        setErrors({ password: "Login failed. Please try again." });
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.message;
       }
+
+      toast.error(message ?? "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }

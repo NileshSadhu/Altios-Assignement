@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import api from "../api/axios";
+import toast from "react-hot-toast";
 
 const TaskForm = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const TaskForm = () => {
       setDescription(task.description ?? "");
       setStatus(task.status);
       setPriority(task.priority);
+      toast.success(isEditMode ? "Task updated" : "Task created");
     } catch (error) {
       console.log("Failed to fetch task : ", error);
       setError("Failed to load task.");
@@ -57,6 +59,7 @@ const TaskForm = () => {
       navigate("/");
     } catch (error) {
       console.log("Failed to save task : ", error);
+      console.log("Failed to save task : ", error);
 
       let message: string | undefined;
 
@@ -64,7 +67,7 @@ const TaskForm = () => {
         message = error.response?.data?.message;
       }
 
-      setError(message ?? "Failed to save task. Please try again.");
+      toast.error(message ?? "Failed to save task. Please try again.");
     } finally {
       setSubmitting(false);
     }

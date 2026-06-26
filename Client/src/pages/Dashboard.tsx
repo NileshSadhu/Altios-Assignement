@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import toast from "react-hot-toast";
 
 interface Task {
   _id: string;
@@ -35,7 +36,7 @@ const Dashboard = () => {
       setData(response.data.tasks);
     } catch (error) {
       console.log("Failed to fetch all tasks : ", error);
-      setError("Failed to load tasks. Please try again.");
+      toast.error("Failed to load tasks. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -49,9 +50,10 @@ const Dashboard = () => {
 
       setData((prev) => prev.filter((task) => task._id !== id));
       setConfirmDeleteId(null);
+      toast.success("Task deleted");
     } catch (error) {
       console.log("Failed to delete task : ", error);
-      setError("Failed to delete task. Please try again.");
+      toast.error("Failed to delete task. Please try again.");
     } finally {
       setDeletingId(null);
     }
