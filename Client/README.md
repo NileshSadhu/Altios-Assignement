@@ -1,32 +1,121 @@
-# React + TypeScript + Vite
+# Task Management Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A React + TypeScript single-page application for managing tasks, built to consume the Task Management API. Includes user authentication, task creation/editing, status filtering, and delete confirmation.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- User Registration & Login
+- JWT stored in `localStorage`, attached automatically to API requests
+- Create, view, edit, and delete tasks
+- Filter tasks by status (pending, in-progress, completed)
+- Color-coded status and priority indicators
+- Toast notifications for success and error feedback
+- Loading states on every API interaction
+- Logout
+- Responsive layout (usable on mobile)
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 18
+- TypeScript
+- Vite
+- React Router DOM
+- Axios
+- Tailwind CSS
+- React Hot Toast
+- Zod (shared validation conventions with backend)
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Installation
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Clone Repository
+
+```bash
+git clone <repository-url>
+cd frontend
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create a `.env` file in the root directory.
+
+```env
+SERVER_URL=http://localhost:8000/api
+```
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173` (or the port Vite assigns).
+
+---
+
+## Backend Dependency
+
+This frontend expects the [Task Management API](../backend/README.md) to be running and reachable at the URL set in `SERVER_URL`. Start the backend first — see its README for setup.
+
+---
+
+## Routes
+
+| Path              | Component   | Description                                    |
+| ----------------- | ----------- | ---------------------------------------------- |
+| `/login`          | `Login`     | User login                                     |
+| `/register`       | `Register`  | User registration                              |
+| `/`               | `Dashboard` | Task list with status filter, edit, and delete |
+| `/tasks/new`      | `TaskForm`  | Create a new task                              |
+| `/tasks/:id/edit` | `TaskForm`  | Edit an existing task                          |
+
+---
+
+## Project Structure
+
+```text
+src
+├── api
+│   └── axios.ts
+├── components
+│   ├── CustomBtn.tsx
+│   └── CustomInput.tsx
+├── pages
+│   ├── Dashboard.tsx
+│   ├── TaskForm.tsx
+│   └── auth
+│       ├── Login.tsx
+│       └── Register.tsx
+├── App.tsx
+└── main.tsx
+```
+
+---
+
+## Design Decisions
+
+- **Single `TaskForm` page handles both create and edit.** Mode is determined by the presence of an `:id` route param, avoiding duplicated form markup and validation logic across two separate pages.
+- **JWT is stored in `localStorage`** and attached via an Axios request interceptor, rather than passed manually on each call.
+- **Delete uses an inline two-step confirm** (Delete → Confirm/Cancel) directly on the task card instead of a `window.confirm()` dialog or modal, to keep the UI in one component and avoid native browser dialogs that are hard to style or test.
+- **Status filtering is server-side**, passed as a `status` query param to `GET /api/tasks`, reusing the filtering already implemented on the backend rather than duplicating it client-side.
+- **Empty `description` is omitted from the request payload** rather than sent as `""`, since the backend's validation treats an empty string differently from an absent field.
+- **User feedback is handled via `react-hot-toast`** rather than inline error banners — success and failure states for login, registration, task creation/update, fetching, and deletion all surface as toasts.
+
+---
+
+## Future Improvements
+
+- Pagination
+- Search Functionality
+- Docker Support
+
+## Author
+
+Nilesh Sadhu

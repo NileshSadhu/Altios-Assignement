@@ -59,7 +59,6 @@ const TaskForm = () => {
       navigate("/");
     } catch (error) {
       console.log("Failed to save task : ", error);
-      console.log("Failed to save task : ", error);
 
       let message: string | undefined;
 
