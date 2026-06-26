@@ -27,6 +27,7 @@ A RESTful Task Management API built with Node.js, Express, TypeScript, MongoDB, 
 - JWT (JSON Web Token)
 - Bcrypt
 - Zod
+- Jest (Testing)
 
 ---
 
@@ -249,6 +250,24 @@ src
 
 ---
 
+## Running Tests
+
+Unit tests cover the task CRUD controller (`getTask`, `getTaskById`, `addTask`, `updateTask`, `deleteTask`), using mocked Mongoose models so tests run in isolation without a real database connection.
+
+### Run Tests
+
+```bash
+npm test
+```
+
+### Run Tests in Watch Mode
+
+```bash
+npm run test:watch
+```
+
+---
+
 ## Future Improvements
 
 - Pagination
@@ -259,4 +278,4 @@ src
 
 ## Author
 
-Nilesh
+Nilesh Sadhu
