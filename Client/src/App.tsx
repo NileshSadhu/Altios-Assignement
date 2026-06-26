@@ -4,6 +4,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
+import TaskForm from "./pages/TaskForm";
 
 function App() {
   return (
@@ -14,6 +15,23 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/tasks/new"
+          element={
+            <ProtectedRoute>
+              <TaskForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tasks/:id/edit"
+          element={
+            <ProtectedRoute>
+              <TaskForm />
             </ProtectedRoute>
           }
         />
