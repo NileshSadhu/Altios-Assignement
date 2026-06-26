@@ -15,6 +15,16 @@ jest.unstable_mockModule("../models/task.model.js", () => ({
     findOneAndUpdate: mockTaskFindOneAndUpdate,
     findOneAndDelete: mockTaskFindOneAndDelete,
   },
+  TaskStatus: {
+    PENDING: "pending",
+    IN_PROGRESS: "in-progress",
+    COMPLETED: "completed",
+  },
+  PriorityStatus: {
+    LOW: "low",
+    MEDIUM: "medium",
+    HIGH: "high",
+  },
 }));
 
 const { getTask, getTaskById, addTask, updateTask, deleteTask } =
