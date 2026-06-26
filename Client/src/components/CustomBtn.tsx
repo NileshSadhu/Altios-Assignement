@@ -9,7 +9,7 @@ const CustomBtn = ({ text, onClick, type = "button" }: CustomBtnProps) => {
     <button
       type={type}
       onClick={onClick}
-      className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+      className="w-full rounded-lg bg-black px-4 py-2 text-white transition hover:bg-black/70"
     >
       {text}
     </button>
